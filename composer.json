@@ -1,0 +1,19 @@
+{
+    "name": "ppranav/table-insights",
+    "description": "TableInsights is a powerful package designed specifically for back-end developers using the Laravel framework. It allows for easy conversion of database tables into meaningful statistics and insights using just a model.",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Ppranav\\TableInsights\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Pranav",
+            "email": "ppranav164@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
