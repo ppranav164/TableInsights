@@ -12,12 +12,12 @@ return [
     |
     */
 
-    'total_records'           => 'total_records',
-    'total_records_today'     => 'total_records_today',
-    'total_records_last_week' => 'total_records_last_week',
-    'total_records_this_year' => 'total_records_this_year',
-    'total_records_last_year' => 'total_records_last_year',
-
+    'total_records'            => 'total_records',
+    'total_records_today'      => 'total_records_today',
+    'total_records_last_week'  => 'total_records_last_week',
+    'total_records_this_year'  => 'total_records_this_year',
+    'total_records_last_year'  => 'total_records_last_year',
+    'total_records_this_month' => 'total_records_this_month',
 
     /*
     |--------------------------------------------------------------------------
@@ -29,11 +29,12 @@ return [
     */
 
    'settings' => [
-        'total_records'           => true,
-        'total_records_today'     => false,
-        'total_records_last_week' => false,
-        'total_records_this_year' => false,
-        'total_records_last_year' => false,
+        'total_records'            => true,
+        'total_records_today'      => false,
+        'total_records_last_week'  => false,
+        'total_records_this_year'  => false,
+        'total_records_last_year'  => false,
+        'total_records_this_month' => false
    ]
 
 ];

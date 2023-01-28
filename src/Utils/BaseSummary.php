@@ -88,6 +88,7 @@ use Illuminate\Support\Str;
             case 'total_records_last_week' : return $this->analyze(new LastWeekActivity($models->query()));
             case 'total_records_this_year': return $this->analyze(new YearlyActivity($models->query()));
             case 'total_records_last_year': return $this->analyze(new LastYearActivity($models->query()));
+            case 'total_records_this_month': return $this->analyze(new MonthlyActivity($models->query()));
             default: return null;
         }
     }
