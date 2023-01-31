@@ -36,6 +36,11 @@ use Illuminate\Support\Str;
     }
 
 
+    public function analyzeRawDaw(Activity $activity)
+    {
+        return $this->setQueryForRaw($activity)->result();
+    }
+
     /**
      * Add models as array
      * @return array
@@ -50,6 +55,14 @@ use Illuminate\Support\Str;
 
     public abstract function setQuery(Activity $activity);
 
+    /**
+     * @param Activity  $activity
+     * @return Activity
+     */
+    public function setQueryForRaw(Activity $activity)
+    {
+        return $activity;
+    }
 
      /**
      * Get TableInsights instance
@@ -89,6 +102,7 @@ use Illuminate\Support\Str;
             case 'total_records_this_year': return $this->analyze(new YearlyActivity($models->query()));
             case 'total_records_last_year': return $this->analyze(new LastYearActivity($models->query()));
             case 'total_records_this_month': return $this->analyze(new MonthlyActivity($models->query()));
+            case 'total_records_each_month': return $this->analyzeRawDaw(new EachMonthActivity($models->query()));
             default: return null;
         }
     }

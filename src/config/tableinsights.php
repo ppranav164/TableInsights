@@ -18,6 +18,7 @@ return [
     'total_records_this_year'  => 'total_records_this_year',
     'total_records_last_year'  => 'total_records_last_year',
     'total_records_this_month' => 'total_records_this_month',
+    'total_records_each_month' => 'total_records_each_month',
 
     /*
     |--------------------------------------------------------------------------
@@ -34,7 +35,8 @@ return [
         'total_records_last_week'  => false,
         'total_records_this_year'  => false,
         'total_records_last_year'  => false,
-        'total_records_this_month' => false
+        'total_records_this_month' => false,
+        'total_records_each_month' => true
    ]
 
 ];
