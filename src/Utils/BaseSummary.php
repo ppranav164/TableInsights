@@ -5,6 +5,8 @@ namespace Ppranav\TableInsights\Utils;
 use Illuminate\Database\Eloquent\Builder;
 use ReflectionClass;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Model;
+
  abstract class BaseSummary
 {
 
@@ -12,7 +14,7 @@ use Illuminate\Support\Str;
 
     public function getInsights()
     {
-        foreach($this->models() as $model)
+        foreach($this->models() as $model => $date_column)
         {
             $models = (new ReflectionClass($model))->newInstance();
 
@@ -22,7 +24,7 @@ use Illuminate\Support\Str;
             {
                 if($this->canRetrive($insight_key))
                 {
-                    $this->data[$class_name][$insight_key] = $this->getSigleInsight($insight_key, $models);
+                    $this->data[$class_name][$insight_key] = $this->getSigleInsight($insight_key, $models, $date_column);
                 }
             }
         }
@@ -42,17 +44,11 @@ use Illuminate\Support\Str;
     }
 
     /**
-     * Add models as array
-     * @return array
-     */
+	 * Add arrays of models
+	 * @return array<Model, string>
+	 */
     public abstract function models();
 
-
-     /**
-     * specify models date column name
-     * @return string
-     */
-    public abstract function dateColumnName();
 
     /**
      * Set Model conditions
@@ -99,17 +95,17 @@ use Illuminate\Support\Str;
     }
 
 
-    public function getSigleInsight($insight_key, $models)
+    public function getSigleInsight($insight_key, $models, $date_column)
     {
         switch($insight_key)
         {
-            case 'total_records' : return $this->analyze(new AllActivity($models->query(), $this->dateColumnName()));
-            case 'total_records_today' : return $this->analyze(new TodayActivity($models->query(), $this->dateColumnName()));
-            case 'total_records_last_week' : return $this->analyze(new LastWeekActivity($models->query(), $this->dateColumnName()));
-            case 'total_records_this_year': return $this->analyze(new YearlyActivity($models->query(), $this->dateColumnName()));
-            case 'total_records_last_year': return $this->analyze(new LastYearActivity($models->query(), $this->dateColumnName()));
-            case 'total_records_this_month': return $this->analyze(new MonthlyActivity($models->query(), $this->dateColumnName()));
-            case 'total_records_each_month': return $this->analyzeRawDaw(new EachMonthActivity($models->query(), $this->dateColumnName()));
+            case 'total_records' : return $this->analyze(new AllActivity($models->query(), $date_column));
+            case 'total_records_today' : return $this->analyze(new TodayActivity($models->query(), $date_column));
+            case 'total_records_last_week' : return $this->analyze(new LastWeekActivity($models->query(), $date_column));
+            case 'total_records_this_year': return $this->analyze(new YearlyActivity($models->query(), $date_column));
+            case 'total_records_last_year': return $this->analyze(new LastYearActivity($models->query(), $date_column));
+            case 'total_records_this_month': return $this->analyze(new MonthlyActivity($models->query(), $date_column));
+            case 'total_records_each_month': return $this->analyzeRawDaw(new EachMonthActivity($models->query(), $date_column));
             default: return null;
         }
     }
