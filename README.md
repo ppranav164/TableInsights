@@ -37,11 +37,14 @@ Extend the class \Ppranav\TableInsights\TableInsights in your own class and impl
 
 
 ```bash
-
+/**
+ * Add arrays of models
+ * @return array<Model, string>
+ */
 public function models() {
     return [
-        Project::class,
-        TaskLog::class
+        Project::class => 'created_at',
+        TaskLog::class => 'committed_at'
     ];
 }
 
@@ -66,17 +69,17 @@ Finally, Your Implementation class should look like this:
 ```bash
 class Dashboard extends TableInsights
 {
-  /**
-   * Add models as array
-   * @return array
-   */
+
+    /**
+     * Add arrays of models
+     * @return array<Model, string>
+     */
     public function models() {
         return [
-            Project::class,
-            TaskLog::class
+            Project::class => 'created_at',
+            TaskLog::class => 'committed_at'
         ];
     }
-
 
     public function setQuery(Activity $activity)
     {
