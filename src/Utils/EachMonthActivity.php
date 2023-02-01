@@ -12,24 +12,24 @@ class EachMonthActivity extends Activity
 
     protected $builder;
 
-    public function __construct(Builder $builder)
+    public function __construct(Builder $builder, $date_column)
     {
-        parent::__construct($builder);
+        parent::__construct($builder, $date_column);
         $this->setCondition();
     }
 
     public function setCondition(): Builder
     {
-        return $this->builder;
+        return $this->builder->whereYear($this->date_column, date('Y'));
     }
 
 
     public function result() : array
     {
         $logs = $this->builder->get()
-                        ->groupBy(function($date) {
-                            return Carbon::parse($date->created_at)->format('m');
-                        });
+                ->groupBy(function($date) {
+                    return Carbon::parse($date->{$this->date_column})->format('m');
+                });
 
         $log_data = [];
         $sumary = [];

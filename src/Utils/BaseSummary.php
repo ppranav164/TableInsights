@@ -47,6 +47,13 @@ use Illuminate\Support\Str;
      */
     public abstract function models();
 
+
+     /**
+     * specify models date column name
+     * @return string
+     */
+    public abstract function dateColumnName();
+
     /**
      * Set Model conditions
      * @param Activity  $activity
@@ -96,13 +103,13 @@ use Illuminate\Support\Str;
     {
         switch($insight_key)
         {
-            case 'total_records' : return $this->analyze(new AllActivity($models->query()));
-            case 'total_records_today' : return $this->analyze(new TodayActivity($models->query()));
-            case 'total_records_last_week' : return $this->analyze(new LastWeekActivity($models->query()));
-            case 'total_records_this_year': return $this->analyze(new YearlyActivity($models->query()));
-            case 'total_records_last_year': return $this->analyze(new LastYearActivity($models->query()));
-            case 'total_records_this_month': return $this->analyze(new MonthlyActivity($models->query()));
-            case 'total_records_each_month': return $this->analyzeRawDaw(new EachMonthActivity($models->query()));
+            case 'total_records' : return $this->analyze(new AllActivity($models->query(), $this->dateColumnName()));
+            case 'total_records_today' : return $this->analyze(new TodayActivity($models->query(), $this->dateColumnName()));
+            case 'total_records_last_week' : return $this->analyze(new LastWeekActivity($models->query(), $this->dateColumnName()));
+            case 'total_records_this_year': return $this->analyze(new YearlyActivity($models->query(), $this->dateColumnName()));
+            case 'total_records_last_year': return $this->analyze(new LastYearActivity($models->query(), $this->dateColumnName()));
+            case 'total_records_this_month': return $this->analyze(new MonthlyActivity($models->query(), $this->dateColumnName()));
+            case 'total_records_each_month': return $this->analyzeRawDaw(new EachMonthActivity($models->query(), $this->dateColumnName()));
             default: return null;
         }
     }

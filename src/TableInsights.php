@@ -21,4 +21,14 @@ abstract class TableInsights extends BaseSummary implements TableDataInsights
         return $activity->query();
     }
 
+
+    /**
+     * specify models date column name
+     * @return string
+     */
+    public  function dateColumnName()
+    {
+        return 'created_at';
+    }
+
 }

@@ -10,9 +10,9 @@ class AllActivity extends Activity
 
     protected $builder;
 
-    public function __construct(Builder $model)
+    public function __construct(Builder $model, $date_column)
     {
-        parent::__construct($model);
+        parent::__construct($model, $date_column);
         $this->setCondition();
     }
 

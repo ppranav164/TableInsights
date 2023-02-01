@@ -9,15 +9,16 @@ class TodayActivity extends Activity
 
     protected $builder;
 
-    public function __construct(Builder $builder)
+    public function __construct(Builder $builder, $date_column)
     {
-        parent::__construct($builder);
+        parent::__construct($builder, $date_column);
         $this->setCondition();
     }
 
     public function setCondition(): Builder
     {
-        return $this->builder->whereDay('created_at', date('d'));
+        return $this->builder->whereDay($this->date_column, date('d'))
+            ->whereYear($this->date_column, date('Y'));
     }
 
 }
